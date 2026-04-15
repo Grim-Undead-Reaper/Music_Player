@@ -5,6 +5,7 @@ from Constantes import *
 window = tkinter.Tk()
 pygame.init()
 
+#Variables
 Music_Queue = []
 
 paused = True
@@ -22,6 +23,7 @@ def CheckIfIsSongEnd(song:string) -> boolean:
 def GettingSong() -> string:
     filepath = filedialog.askopenfilename(
     title="Choice you file",
+    multiple=True,
     initialdir="/",
     filetypes=
     (("music files", ".mp3"),
@@ -29,9 +31,13 @@ def GettingSong() -> string:
 
     return filepath
 
-def FindingAndAddSongToQueue():
+def AddSongToQueue():
     filepath = GettingSong()
-    pass
+    
+    for path in filepath:
+        Music_Queue.append(path)
+    
+    print(Music_Queue)
 
 def NextSong():
     pass
@@ -56,5 +62,8 @@ else:
 
 NextButton = tkinter.Button(MusicControlFrame, text="Next")
 NextButton.grid(row=0, column=2)
+
+GetSongsButton = tkinter.Button(window, text="+", command=AddSongToQueue)
+GetSongsButton.pack()
 
 window.mainloop()
