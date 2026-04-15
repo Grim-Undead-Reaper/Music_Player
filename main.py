@@ -1,51 +1,60 @@
-import pygame
-from pygame.locals import *
-import sys, os
-from Constantes import *
+import pygame, tkinter
 from tkinter import filedialog
+from Constantes import *
 
+window = tkinter.Tk()
 pygame.init()
 
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+Music_Queue = []
 
-run = True
+paused = True
 playing = False
-paused = False
 
-clock = pygame.time.Clock()
+def PlayMusic():
+    pass
 
-while run:
+def StopMusic():
+    pass
 
-    clock.tick(60)
+def CheckIfIsSongEnd(song:string) -> boolean:
+    return True
 
-    screen.fill(COLORS['white'])
+def GettingSong() -> string:
+    filepath = filedialog.askopenfilename(
+    title="Choice you file",
+    initialdir="/",
+    filetypes=
+    (("music files", ".mp3"),
+    ("music files",".wav")))
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-            pygame.quit()
-            sys.exit()
+    return filepath
 
-        if event.type == KEYDOWN:
-            if event.key == K_SPACE:
-                filepath = filedialog.askopenfilename(title="Choice you file", initialdir="/", filetypes=(("music files", ".mp3"),("music files",".wav")))
-                try:
-                    pygame.mixer.music.unload()
-                    pygame.mixer.music.load(str(filepath))
-                except:
-                    pass
-            
-            if event.key == K_p:
-                if playing == False:
-                    if paused == True:
-                        pygame.mixer.music.unpause()
-                        paused = False
-                    else:
-                        pygame.mixer.music.play()
-                    playing = True
-                else:
-                    pygame.mixer.music.pause()
-                    paused = True
-                    playing = False
-    
-    pygame.display.flip()
+def FindingAndAddSongToQueue():
+    filepath = GettingSong()
+    pass
+
+def NextSong():
+    pass
+
+def PreviousSong():
+    pass
+
+window.geometry("500x500+100+100")
+
+MusicControlFrame = tkinter.Frame(window)
+MusicControlFrame.pack()
+
+RewindButton = tkinter.Button(MusicControlFrame, text="Undo")
+RewindButton.grid(row=0, column=0)
+
+if paused:
+    play = tkinter.Button(MusicControlFrame, text="Play")
+    play.grid(row=0, column=1)
+else:
+    pause = tkinter.Button(MusicControlFrame, text="Pause")
+    pause.grid(row=0, column=1)
+
+NextButton = tkinter.Button(MusicControlFrame, text="Next")
+NextButton.grid(row=0, column=2)
+
+window.mainloop()
